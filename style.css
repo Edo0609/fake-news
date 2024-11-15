@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    height: auto;
+}
+
+header {
+    border-bottom: 1px solid #eaeaea;
+    background-color: white;
+    display: flex;
+    height: 100px;
+    width: 100%;
+    justify-content: center;
+    position: fixed;
+    align-items: center;
+    z-index: 3;
+    top: 0;
+    font-size: 30px;
+}
+
+main {
+    margin-top: 110px;
+}
+
+#menu-button {
+    position: absolute;
+    cursor: pointer;
+    left: 0;
+    height: 100%;
+    width: 100px;
+    background-color: white;
+    border: none;
+    anchor-name: --anchor;
+    z-index: 3;
+}
+
+[popover] {
+    z-index: 1;
+    position-anchor: --anchor;
+    top: anchor(--anchor bottom);
+    left: anchor(--anchor left);
+    border: none;
+    border-right: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+    width: 200px;
+    height: 400px;
+    font-size: 20px;
+    text-align: left;
+    height: 600px;
+
+}
+
+#popover-1 div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 100%;
+    li {
+        height: 100%;
+    }
+}
+
+#popover-1 a {
+    margin: 0;
+    padding-left: 10px;
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+#news-grid {
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+#news-grid .container {
+    border: 1px solid #c4c4c4;
+    transition: 0.5s;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 1px 10px 10px rgb(172, 172, 172);
+    height: 100%;
+
+    a {
+        text-decoration: none;
+        color: black;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        
+        .article {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            gap: 10px;
+
+            .headline {
+                font-size: 30px;
+            }
+
+            .abstract {
+                margin-bottom: 50px;
+            }
+
+            #down-section {
+                display: flex;
+                flex-direction: column;
+                justify-content: end;
+                height: 100%;
+
+                #final-line {
+                    display: flex;
+                    padding-top: 5px;
+                    justify-content: space-between;
+                    align-items: end;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+#news-grid .container:hover {
+    transform: scale(1.05);
+}
+
+
+@media (max-width: 768px) {
+    #news-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+
+@media (max-width: 480px) {
+    #news-grid {
+        grid-template-columns: 1fr;
+    }
+    header h1 {
+        display: none;
+    }
+}

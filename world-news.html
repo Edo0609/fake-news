@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href=”https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css” rel=”stylesheet”>
+    <link rel="stylesheet" href="style.css">
+    <title>Fake News</title>
+</head>
+
+<body>
+    <header>
+        <h1>Fake News</h1>
+        <button id="menu-button" popovertarget="popover-1" anchor-name="--anchor"><img src="imgs/icons8-menú.svg"
+                alt="menu">
+            <ul id="popover-1" popover>
+                <div>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="world-news.html">World News</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="finance.html">Finance</a></li>
+                    <li><a href="technology.html">Technology</a></li>
+                    <li><a href="entertainment.html">Entertainment</a></li>
+                </div>
+            </ul>
+        </button>
+    </header>
+    <main>
+        <template id="article-template">
+            <div class="container">
+                <a class="url" href="#">
+                    <div class="article">
+                        <h3 class="headline"></h3>
+                        <p class="abstract"></p>
+                        <div id="down-section">
+                            <p><strong>Author:</strong> <span class="author"></span></p>
+                            <div id="final-line">
+                                <p class="section"></p>
+                                <relative-time class="date" time="1"></relative-time>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </template>
+
+        <news-viewer id="news-grid">WorldNews</news-viewer>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
