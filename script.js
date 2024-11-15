@@ -1,55 +1,54 @@
 class NewsViewer extends HTMLElement {
-    constructor() {
-      super();
-    }
-  
-    connectedCallback() {
-      this.loadArticles();
-    }
-  
-    async loadArticles() {
-      try {
-        const tipo = this.textContent;
-        const response = await fetch('https://news-foniuhqsba-uc.a.run.app/' + tipo);
-        if (!response.ok) {
-          throw new Error('Error al obtener los artículos');
-        }
-        const articles = await response.json();
-        this.renderArticles(articles);
-      } catch (error) {
-        console.error('Error:', error);
-        this.innerHTML = `<p>Error al cargar los artículos. Inténtelo nuevamente más tarde.</p>`;
-      }
-    }
-  
-    renderArticles(articles) {
-      const template = document.getElementById('article-template');
-      
+	constructor() {
+		super();
+	}
 
-      this.innerHTML = '';
-  
-      articles.forEach(article => {
+	connectedCallback() {
+		this.loadArticles();
+	}
 
-        const articleContent = document.importNode(template.content, true);
-        
+	async loadArticles() {
+		try {
+			const response = await fetch('https://news-foniuhqsba-uc.a.run.app/' + this.getAttribute('section'));
+			if (!response.ok) {
+				throw new Error('Error al obtener los artículos');
+			}
+			const articles = await response.json();
+			this.renderArticles(articles);
+		} catch (error) {
+			console.error('Error:', error);
+			this.innerHTML = `<p>Error al cargar los artículos. Inténtelo nuevamente más tarde.</p>`;
+		}
+	}
 
-        articleContent.querySelector('.headline').textContent = article.headline;
-        articleContent.querySelector('.abstract').textContent = article.abstract;
-        articleContent.querySelector('.author').textContent = article.author;
-        articleContent.querySelector('.section').textContent = article.section;
-        articleContent.querySelector('.date').setAttribute('time', article.date);
-        articleContent.querySelector('.url').href = article.article_uri;
-        
+	renderArticles(articles) {
+		const template = document.getElementById('article-template');
 
-        this.appendChild(articleContent);
-      });
-    }
-  }
-  
 
-  customElements.define('news-viewer', NewsViewer);
+		this.innerHTML = '';
 
-  class RelativeTime extends HTMLElement {
+		articles.forEach(article => {
+
+			const articleContent = document.importNode(template.content, true);
+
+
+			articleContent.querySelector('.headline').textContent = article.headline;
+			articleContent.querySelector('.abstract').textContent = article.abstract;
+			articleContent.querySelector('.author').textContent = article.author;
+			articleContent.querySelector('.section').textContent = article.section;
+			articleContent.querySelector('.date').setAttribute('time', article.date);
+			articleContent.querySelector('.url').href = 'article.html?id=' + article.id;
+
+
+			this.appendChild(articleContent);
+		});
+	}
+}
+
+
+customElements.define('news-viewer', NewsViewer);
+
+class RelativeTime extends HTMLElement {
 	constructor() {
 		super();
 	}
@@ -62,12 +61,12 @@ class NewsViewer extends HTMLElement {
 	}
 
 	static get observedAttributes() {
-		return['time']
+		return ['time']
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
 		this.render();
-	  }
+	}
 
 	render() {
 		const time = new Date(this.getAttribute('time')).getTime();
@@ -104,3 +103,55 @@ class NewsViewer extends HTMLElement {
 	}
 }
 customElements.define('relative-time', RelativeTime);
+
+class CustomArticle extends HTMLElement {
+	constructor() {
+		super();
+	}
+
+	connectedCallback() {
+		this.loadArticle();
+	}
+
+	async loadArticle() {
+		try {
+			const params = new URLSearchParams(location.search);
+			const id = params.get('id')
+			const response = await fetch('https://news-foniuhqsba-uc.a.run.app/' + id);
+			if (!response.ok) {
+				throw new Error('Error al obtener artículo');
+			}
+			const article = await response.json();
+			this.renderArticle(article);
+		} catch (error) {
+			console.error('Error:', error);
+			this.innerHTML = `<p>Error al cargar el artículo. Inténtelo nuevamente más tarde.</p>`;
+		}
+	}
+
+	renderArticles(articles) {
+		const template = document.getElementById('article-template');
+
+
+		this.innerHTML = '';
+
+		articles.forEach(article => {
+
+			const articleContent = document.importNode(template.content, true);
+
+
+			articleContent.querySelector('.headline').textContent = article.headline;
+			articleContent.querySelector('.abstract').textContent = article.abstract;
+			articleContent.querySelector('.author').textContent = article.author;
+			articleContent.querySelector('.section').textContent = article.section;
+			articleContent.querySelector('.date').setAttribute('time', article.date);
+			articleContent.querySelector('.url').href = 'article.html?id=' + article.id;
+
+
+			this.appendChild(articleContent);
+		});
+	}
+
+
+}
+customElements.define('custom-article', CustomArticle);
