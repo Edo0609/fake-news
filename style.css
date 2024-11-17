@@ -133,6 +133,33 @@ main {
     }
 }
 
+.article-container {
+    margin: 50px;
+    margin-top: 150px;
+    display: flex;
+    flex-direction: column;
+    .headline {
+        font-size: 60px;
+    }
+    .author {
+        margin-top: 5px;
+        margin-left: 15px;
+        font-size: 20px;
+    }
+    .date {
+        margin-top: 5px;
+        font-size: 15px;
+        margin-left: 15px;
+        color: gray;
+    }
+    .body {
+        margin-top: 40px;
+        margin-right: 50px;
+        text-align: justify;
+        font-size: 18px;
+    }
+}
+
 #news-grid .container:hover {
     transform: scale(1.05);
 }

@@ -129,27 +129,21 @@ class CustomArticle extends HTMLElement {
 		}
 	}
 
-	renderArticles(articles) {
+	renderArticle(article) {
 		const template = document.getElementById('article-template');
 
 
 		this.innerHTML = '';
-
-		articles.forEach(article => {
-
 			const articleContent = document.importNode(template.content, true);
 
 
 			articleContent.querySelector('.headline').textContent = article.headline;
-			articleContent.querySelector('.abstract').textContent = article.abstract;
+			articleContent.querySelector('.body').innerHTML = article.body;
 			articleContent.querySelector('.author').textContent = article.author;
-			articleContent.querySelector('.section').textContent = article.section;
 			articleContent.querySelector('.date').setAttribute('time', article.date);
-			articleContent.querySelector('.url').href = 'article.html?id=' + article.id;
 
 
 			this.appendChild(articleContent);
-		});
 	}
 
 
